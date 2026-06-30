@@ -69,7 +69,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
         if (!running) {
 
-            g.setColor(Color.RED);
+            g.setColor(Color.YELLOW);
             g.setFont(new Font("Arial", Font.BOLD, 50));
             g.drawString("GAME OVER", 120, 300);
 
@@ -114,6 +114,14 @@ public class GamePanel extends JPanel implements ActionListener {
     }
 
     public void checkCollisions() {
+
+        for (int i = bodyParts; i > 0; i--) {
+
+            if (x[0] == x[i] && y[0] == y[i]) {
+                running = false;
+            }
+
+        }
 
         if (x[0] < 0 || x[0] >= SCREEN_WIDTH ||
                 y[0] < 0 || y[0] >= SCREEN_HEIGHT) {
