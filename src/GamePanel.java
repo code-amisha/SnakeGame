@@ -20,6 +20,7 @@ public class GamePanel extends JPanel implements ActionListener {
     int[] y = new int[100];
 
     int bodyParts = 5;
+    int applesEaten = 0;
     Random random;
 
     int appleX;
@@ -60,6 +61,10 @@ public class GamePanel extends JPanel implements ActionListener {
         }
         g.setColor(Color.RED);
         g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Score: " + applesEaten, 20, 30);
     }
 
     public void move() {
@@ -87,7 +92,18 @@ public class GamePanel extends JPanel implements ActionListener {
                 x[0] += UNIT_SIZE;
                 break;
         }
-    }public void newApple() {
+    }
+    public void checkApple() {
+
+        if (x[0] == appleX && y[0] == appleY) {
+
+            bodyParts++;
+            applesEaten++;
+
+            newApple();
+        }
+    }
+    public void newApple() {
 
         appleX = random.nextInt(SCREEN_WIDTH / UNIT_SIZE) * UNIT_SIZE;
         appleY = random.nextInt(SCREEN_HEIGHT / UNIT_SIZE) * UNIT_SIZE;
@@ -96,9 +112,11 @@ public class GamePanel extends JPanel implements ActionListener {
 
 
 
+
     @Override
     public void actionPerformed(ActionEvent e) {
         move();
+        checkApple();
         repaint();
     }
 
