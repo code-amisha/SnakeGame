@@ -1,3 +1,4 @@
+import java.util.Random;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,6 +20,10 @@ public class GamePanel extends JPanel implements ActionListener {
     int[] y = new int[100];
 
     int bodyParts = 5;
+    Random random;
+
+    int appleX;
+    int appleY;
 
     GamePanel() {
 
@@ -32,6 +37,9 @@ public class GamePanel extends JPanel implements ActionListener {
             y[i] = 100;
         }
 
+
+        random = new Random();
+        newApple();
         timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -50,6 +58,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
             g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
         }
+        g.setColor(Color.RED);
+        g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
     }
 
     public void move() {
@@ -77,7 +87,14 @@ public class GamePanel extends JPanel implements ActionListener {
                 x[0] += UNIT_SIZE;
                 break;
         }
+    }public void newApple() {
+
+        appleX = random.nextInt(SCREEN_WIDTH / UNIT_SIZE) * UNIT_SIZE;
+        appleY = random.nextInt(SCREEN_HEIGHT / UNIT_SIZE) * UNIT_SIZE;
+
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
